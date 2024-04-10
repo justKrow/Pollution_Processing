@@ -5,47 +5,32 @@ ini_set("max_execution_time", 300);
 ini_set("auto_detect_line_endings", true);
 
 include("config.php");
+include("utils.php");
 
 $inputFile = fopen('air-quality-data-2003-2022.csv', 'r');
 
-if (($line = fgets($inputFile)) !== false) {
-  $headers = str_getcsv($line, ";");
-} else {
-  echo "Could not read file";
-  exit;
-}
+$headers = $getHeaders($inputFile);
 
 $generateCSV = function ($monitors) {
   return array_map(function ($key) {
-    return fopen("data/data-$key.csv", "w");
+    return fopen("data-csv/data-$key.csv", "w");
   }, array_keys($monitors));
 };
 
-$handles = $generateCSV(MONITORS); // Call the returned closure to open files
+$outputFiles = $generateCSV(MONITORS); // Call the returned closure to open files
 
-$addHeaders = function ($handle, $filtered_headers) {
-  fputs($handle, implode(";", $filtered_headers) . PHP_EOL);
+$addHeaders = function ($outputFile, $filtered_headers) {
+  fputs($outputFile, implode(";", $filtered_headers) . PHP_EOL);
 };
 
-array_walk($handles, function ($handle) use ($addHeaders) {
-  $addHeaders($handle, FILTERED_HEADERS);
+array_walk($outputFiles, function ($outputFile) use ($addHeaders) {
+  $addHeaders($outputFile, FILTERED_HEADERS);
 });
 
-$getData = function ($line, $headers) {
-  $value_array = str_getcsv($line, ";");
-  $combined_array = array_combine($headers, $value_array);
-  return $combined_array;
-};
-
-$formatDate = function ($date) {
-  $date_after_timezone_removed = substr($date, 0, 19); #remove time zone
-  $timestamp = new DateTime($date_after_timezone_removed);
-  return $timestamp->format('M d, Y h:i A');
-};
 
 while (($line = fgets($inputFile)) !== false) {
   // Determine the category of the line
-  $raw_data = $getData($line, $headers);
+  $raw_data = $getDataByCategory($line, $headers);
 
   if (empty($raw_data["NOx"]) && empty($raw_data["CO"])) {
     continue;
@@ -73,7 +58,7 @@ while (($line = fgets($inputFile)) !== false) {
     $longitude
   ];
 
-  fputs(fopen("data/data-" . $raw_data["SiteID"] . ".csv", "a"), implode(";", $data) . PHP_EOL);
+  fputs(fopen("data-csv/data-" . $raw_data["SiteID"] . ".csv", "a"), implode(";", $data) . PHP_EOL);
 }
 
-array_map("fclose", $handles);
+array_map("fclose", $outputFiles);
