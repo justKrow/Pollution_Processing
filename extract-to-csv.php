@@ -15,40 +15,65 @@ if (($line = fgets($inputFile)) !== false) {
   exit;
 }
 
-
 $generateCSV = function ($monitors) {
   return array_map(function ($key) {
     return fopen("data/data-$key.csv", "w");
   }, array_keys($monitors));
 };
 
-$closeCSV = function ($handles) {
-  foreach ($handles as $handle) {
-    fclose($handle);
-  }
-};
-
 $handles = $generateCSV(MONITORS); // Call the returned closure to open files
-if (!$headers) {
-  echo "Could not read CSV headers";
-  exit;
-}
 
 $addHeaders = function ($handle, $filtered_headers) {
   fputs($handle, implode(";", $filtered_headers) . PHP_EOL);
 };
 
-
-foreach ($handles as $handle) {
-  if ($handle === false) {
-    echo "Could not open file";
-    exit;
-  }
+array_walk($handles, function ($handle) use ($addHeaders) {
   $addHeaders($handle, FILTERED_HEADERS);
-}
-
-array_walk($handles, function ($handle) use ($addHeaders, $headers) {
-  $addHeaders($handle, $headers);
 });
+
+$getData = function ($line, $headers) {
+  $value_array = str_getcsv($line, ";");
+  $combined_array = array_combine($headers, $value_array);
+  return $combined_array;
+};
+
+$formatDate = function ($date) {
+  $date_after_timezone_removed = substr($date, 0, 19); #remove time zone
+  $timestamp = new DateTime($date_after_timezone_removed);
+  return $timestamp->format('M d, Y h:i A');
+};
+
+while (($line = fgets($inputFile)) !== false) {
+  // Determine the category of the line
+  $raw_data = $getData($line, $headers);
+
+  if (empty($raw_data["NOx"]) && empty($raw_data["CO"])) {
+    continue;
+  }
+
+  list($latitude, $longitude) = explode(", ", $raw_data["geo_point_2d"],);
+
+  $data = [
+    $raw_data["SiteID"],
+    $formatDate($raw_data[$headers[0]]),
+    $raw_data["NOx"],
+    $raw_data["NO2"],
+    $raw_data["NO"],
+    $raw_data["PM10"],
+    $raw_data["NVPM10"],
+    $raw_data["VPM10"],
+    $raw_data["NVPM2.5"],
+    $raw_data["PM2.5"],
+    $raw_data["VPM2.5"],
+    $raw_data["CO"],
+    $raw_data["O3"],
+    $raw_data["SO2"],
+    $raw_data["Location"],
+    $latitude,
+    $longitude
+  ];
+
+  fputs(fopen("data/data-" . $raw_data["SiteID"] . ".csv", "a"), implode(";", $data) . PHP_EOL);
+}
 
 array_map("fclose", $handles);
