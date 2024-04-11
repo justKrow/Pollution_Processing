@@ -16,9 +16,6 @@
   <xs:simpleType name="optionalDecimal">
     <xs:restriction base="xs:string">
       <xs:pattern value="-?\d*\.?\d*"/>
-      <!-- Allows decimal with optional minus sign -->
-      <xs:pattern value="\d+(\.\d+)?|-\d+(\.\d+)?" />
-      <!-- Allows only numeric values -->
     </xs:restriction>
   </xs:simpleType>
 
