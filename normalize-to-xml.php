@@ -30,13 +30,18 @@ function processFile($fileName, $getHeaders, $getDataByCategory, $key, $value)
     return $dom;
 }
 
-function saveXml($dom, $fileName)
+function saveXml($dom, $key, $xsd)
 {
-    $dom->save("data-xml/data-$fileName.xml");
+    if ($dom->schemaValidate($xsd)) {
+        $dom->save("data-xml/data-$key.xml");
+    } else {
+        echo "Invalid XML: data-$key.xml";
+    }
 }
 
 foreach (MONITORS as $key => $value) {
+    $xsd = "air-quality.xsd";
     $fileName = "data-csv/data-$key.csv";
     $dom = processFile($fileName, $getHeaders, $getDataByCategory, $key, $value);
-    saveXml($dom, $key);
+    saveXml($dom, $key, $xsd);
 }
