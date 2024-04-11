@@ -17,7 +17,6 @@ $getDataByCategory = function ($line, $headers) {
 };
 
 $formatDate = function ($date) {
-  $date_after_timezone_removed = substr($date, 0, 19); #remove time zone
-  $timestamp = new DateTime($date_after_timezone_removed);
-  return $timestamp->format('M d, Y h:i A');
+  $dateTime = new DateTime($date);
+  return $dateTime->getTimestamp();
 };
