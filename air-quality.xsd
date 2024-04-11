@@ -1,0 +1,53 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:simpleType name="idFormat">
+    <xs:restriction base="xs:integer">
+      <xs:totalDigits value="3"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="geocodeFormat">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?\d{1,3}\.\d*,\s*-?\d{1,3}\.\d*"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:simpleType name="optionalDecimal">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?\d*\.?\d*"/>
+      <!-- Allows decimal with optional minus sign -->
+      <xs:pattern value="\d+(\.\d+)?|-\d+(\.\d+)?" />
+      <!-- Allows only numeric values -->
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="tsFormat">
+    <xs:restriction base="xs:integer">
+      <xs:totalDigits value="10"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- Define complex type for the 'station' element -->
+  <xs:complexType name="stationType">
+    <xs:sequence>
+      <xs:element ref="rec" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string"/>
+    <xs:attribute name="name" type="xs:string"/>
+    <xs:attribute name="geocode" type="geocodeFormat"/>
+  </xs:complexType>
+
+  <xs:element name="rec">
+    <xs:complexType>
+      <xs:attribute name="ts" type="tsFormat" use="required"/>
+      <xs:attribute name="nox" type="optionalDecimal" use="optional"/>
+      <xs:attribute name="no" type="optionalDecimal" use="optional"/>
+      <xs:attribute name="no2" type="optionalDecimal" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+
+  <!-- Define the root element -->
+  <xs:element name="station" type="stationType"/>
+
+</xs:schema>
