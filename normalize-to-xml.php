@@ -2,8 +2,7 @@
 
 include("config.php");
 include("utils.php");
-
-function processFile($fileName, $getHeaders, $getDataByCategory)
+function processFile($fileName, $getHeaders, $getDataByCategory, $key, $value)
 {
     $inputFile = fopen($fileName, "r");
     $headers = $getHeaders($inputFile);
@@ -11,12 +10,12 @@ function processFile($fileName, $getHeaders, $getDataByCategory)
     $dom->preserveWhiteSpace = false; // Ensure that whitespace is not preserved
     $dom->formatOutput = true; // Enable automatic formatting
     $root = $dom->createElement("station");
+    $root->setAttribute("id", $key);
+    $root->setAttribute("name", $value);
     $dom->appendChild($root);
 
     while (($line = fgets($inputFile)) !== false) {
         $raw_data = $getDataByCategory($line, $headers);
-        $root->setAttribute("id", $raw_data["SiteID"]);
-        $root->setAttribute("name", $raw_data["Loc"]);
         $root->setAttribute("geocode", implode(",", [$raw_data["Lat"], $raw_data["Long"]]));
 
         $record = $dom->createElement("rec");
@@ -38,6 +37,6 @@ function saveXml($dom, $fileName)
 
 foreach (MONITORS as $key => $value) {
     $fileName = "data-csv/data-$key.csv";
-    $dom = processFile($fileName, $getHeaders, $getDataByCategory);
+    $dom = processFile($fileName, $getHeaders, $getDataByCategory, $key, $value);
     saveXml($dom, $key);
 }
