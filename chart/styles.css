@@ -1,0 +1,30 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background-color: rgb(105, 104, 104);
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+}
+
+.chart1,
+.chart2 {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+}
+
+.scatter_chart,
+.line_chart {
+  margin: 0 auto;
+  margin-top: 20px;
+  width: 70%;
+  height: 300px;
+  background-color: black;
+}
