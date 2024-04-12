@@ -16,7 +16,18 @@ $getDataByCategory = function ($line, $headers) {
   return $combined_array;
 };
 
-$formatDate = function ($date) {
+$formatDateToTimeStamp = function ($date) {
   $dateTime = new DateTime($date);
   return $dateTime->getTimestamp();
+};
+
+$formatTimestampToDate = function ($timestamp) {
+  $dateTime = new DateTime('@' . $timestamp);
+  return $dateTime->format('Y-m-d H:i:s');
+};
+
+$getRecord = function ($id) {
+  $xml = simplexml_load_file("data-xml/data-$id.xml");
+  foreach ($xml->rec as $record) {
+  }
 };
