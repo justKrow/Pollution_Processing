@@ -4,13 +4,25 @@ body {
   margin: 0;
 }
 
-.container {
+.chart_container {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  height: 100vh;
+  width: 100%;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100vw;
+  height: 100%;
+}
+
+select {
+  font-size: larger;
+}
 .chart1,
 .chart2 {
   flex: 1;
@@ -23,7 +35,7 @@ body {
 .line_chart {
   margin: 0 auto;
   margin-top: 20px;
-  width: 70%;
-  height: 300px;
+  width: 90%;
+  height: 500px;
   background-color: aliceblue;
 }

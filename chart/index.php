@@ -6,45 +6,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>charts</title>
   <link rel="stylesheet" href="styles.css" type="text/css" />
-  <!--Load the AJAX API-->
+  <!-- Load jQuery -->
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <!-- Load Google Charts API -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="app.js"></script>
+  <!-- Load your app.js -->
 </head>
 
 <body>
   <div class="container">
-    <section class="chart1">
-      <h1>Scatter Chart</h1>
-      <div class="choices">
-        <select id="monitor" name="monitor">
-          <?php
-          include("../config.php");
+    <div class="choices">
+      <select id="monitor" name="monitor">
+        <?php
+        include("../config.php");
 
-          foreach (MONITORS as $key => $value) {
-            echo "<option value=$key>$value</option>";
-          }
-          ?>
-        </select>
-      </div>
-      <div class="scatter_chart"></div>
-    </section>
-    <section class="chart2">
-      <h1>Line Chart</h1>
-      <div class="options">
-        <div class="option">
-          <input type="radio" value="nox" id="nox" name="category">
-          <label for="nox">NOx</label>
-          <input type="radio" value="no" id="no" name="category">
-          <label for="no">NO</label>
-          <input type="radio" value="no2" id="no2" name="category">
-          <label for="no2">NO2</label>
-        </div>
-      </div>
-      <div class="line_chart"></div>
+        foreach (MONITORS as $key => $value) {
+          echo "<option value='$key'><h1>$value</h1></option>"; // Enclose value in quotes
+        }
+        ?>
+      </select>
+    </div>
+    <div class="chart_container">
+      <section class="chart1">
+        <h1>Scatter Chart</h1>
+        <div class="scatter_chart"></div>
+      </section>
+      <section class="chart2">
+        <h1>Line Chart</h1>
+        <div class="line_chart"></div>
+      </section>
+    </div>
   </div>
-  </section>
-  </div>
+  <script type="text/javascript" src="app.js"></script>
 </body>
 
 </html>
