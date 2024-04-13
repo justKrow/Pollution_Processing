@@ -2,7 +2,6 @@ html,
 body {
   height: 100%;
   margin: 0;
-  background-color: rgb(105, 104, 104);
 }
 
 .container {
@@ -26,5 +25,5 @@ body {
   margin-top: 20px;
   width: 70%;
   height: 300px;
-  background-color: black;
+  background-color: aliceblue;
 }
