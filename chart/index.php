@@ -33,8 +33,8 @@
       </section>
       <section class="chart2">
         <h1>Line Chart</h1>
-        <div class="line_chart"></div>
         <input type="date" id="date_picker" name="date_picker" min="2022-01-01" max="2022-12-31" value="2022-11-01">
+        <div class="line_chart"></div>
       </section>
     </div>
   </div>
