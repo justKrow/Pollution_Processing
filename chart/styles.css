@@ -22,7 +22,9 @@ body {
 
 select {
   font-size: larger;
+  text-align: center;
 }
+
 .chart1,
 .chart2 {
   flex: 1;

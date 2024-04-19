@@ -21,13 +21,26 @@ $formatDateToTimeStamp = function ($date) {
   return $dateTime->getTimestamp();
 };
 
-$formatTimestampToDate = function ($timestamp) {
+$getMonthDate = function ($timestamp) {
   $dateTime = new DateTime('@' . $timestamp);
-  return $dateTime->format('Y-m-d H:i:s');
+  return $dateTime->format('m-d');
 };
 
-$getRecord = function ($id) {
-  $xml = simplexml_load_file("data-xml/data-$id.xml");
-  foreach ($xml->rec as $record) {
+$getHour = function ($timestamp) {
+  $dateTime = new DateTime('@' . $timestamp);
+  return $dateTime->format('H');
+};
+
+$getYear = function ($timestamp) {
+  $dateTime = new DateTime('@' . $timestamp);
+  return $dateTime->format('Y');
+};
+
+$checkValidDate = function ($rec, $formatTimestampToDate) {
+  $date = $formatTimestampToDate((int)$rec['ts']);
+  if ($date >= new DateTime('2015-01-01') && $date <= new DateTime('2022-12-31')) {
+    return true;
+  } else {
+    return false;
   }
 };

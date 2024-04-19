@@ -25,7 +25,6 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <!-- Define complex type for the 'station' element -->
   <xs:complexType name="stationType">
     <xs:sequence>
       <xs:element ref="rec" minOccurs="0" maxOccurs="unbounded"/>
@@ -44,7 +43,6 @@
     </xs:complexType>
   </xs:element>
 
-  <!-- Define the root element -->
   <xs:element name="station" type="stationType"/>
 
 </xs:schema>

@@ -3,9 +3,8 @@
 include("../utils.php");
 include("../config.php");
 
-$selected_monitor =  $_GET['monitor'];
-function loadDataFromXML($file, $getHour)
-{
+$monitor =  $_GET['monitor'];
+$loadDataFromXML = function ($file, $getHour) {
   $data = [];
   $xml = simplexml_load_file($file);
   if ($xml === false) {
@@ -23,19 +22,17 @@ function loadDataFromXML($file, $getHour)
     }
   }
   return $data;
-}
+};
 
-function calculateAverages($data)
-{
+$calculateAverages = function ($data) {
   $averages = [];
   foreach ($data as $year_month => $records) {
     $averages[$year_month] = round(array_sum($records) / count($records), 2);
   }
   return $averages;
-}
+};
 
-function prepareChartData($averages)
-{
+$prepareChartData = function ($averages) {
   $data_points = [];
   foreach ($averages as $year_month => $average) {
     $data_points[] = [
@@ -44,12 +41,17 @@ function prepareChartData($averages)
     ];
   }
   return $data_points;
-}
+};
 
 try {
-  $filtered_records = loadDataFromXML('../data-xml/data-' . $selected_monitor . '.xml', $getHour);
-  $averages = calculateAverages($filtered_records);
-  $data_for_chart = prepareChartData($averages);
+  // $filtered_records = $loadDataFromXML('../data-xml/data-' . $monitor . '.xml',  $getHour);
+  $filtered_records = $loadDataFromXML('../data-xml/data-203.xml',  $getHour);
+  $averages = $calculateAverages($filtered_records);
+  $data_for_chart = $prepareChartData($averages);
+  usort($data_for_chart, function ($a, $b) {
+    return strtotime($a['year_month']) - strtotime($b['year_month']);
+  });
+  // print_r($data_for_chart);
   echo json_encode($data_for_chart);
 } catch (Exception $e) {
   echo "Error: " . $e->getMessage();

@@ -40,7 +40,7 @@ while (($line = fgets($inputFile)) !== false) {
 
   $data = [
     $raw_data["SiteID"],
-    $formatDate($raw_data[$headers[0]]),
+    $formatDateToTimeStamp($raw_data[$headers[0]]),
     $raw_data["NOx"],
     $raw_data["NO2"],
     $raw_data["NO"],

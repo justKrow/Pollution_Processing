@@ -21,7 +21,7 @@
         include("../config.php");
 
         foreach (MONITORS as $key => $value) {
-          echo "<option value='$key'><h1>$value</h1></option>"; // Enclose value in quotes
+          echo "<option value='$key'>$value</option>"; // Enclose value in quotes
         }
         ?>
       </select>
@@ -34,6 +34,7 @@
       <section class="chart2">
         <h1>Line Chart</h1>
         <div class="line_chart"></div>
+        <input type="date" id="date_picker" name="date_picker" min="2022-01-01" max="2022-12-31" value="2022-11-01">
       </section>
     </div>
   </div>
