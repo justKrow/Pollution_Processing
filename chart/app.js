@@ -1,53 +1,98 @@
 // Load Google Charts API
-google.charts.load('current', { packages: ['corechart'] });
+google.charts.load("current", { packages: ["corechart"] });
 
-function drawScatterChart(data) {
-  var dataTable = new google.visualization.DataTable();
-  dataTable.addColumn('string', 'Year-Month');
-  dataTable.addColumn('number', 'Average NO');
-
-  data.forEach(function(item) {
-    dataTable.addRow([item.year_month, item.average_NO]);
-  });
-
-  var options = {
-    title: 'Average NO by Year-Month at 8:00',
-    hAxis: { title: 'Year-Month', titleTextStyle: { color: '#333' } },
-    vAxis: { title: 'Average NO', minValue: 0 },
-    legend: 'none'
-  };
-
-  var chart = new google.visualization.ScatterChart(document.querySelector('.scatter_chart'));
-  chart.draw(dataTable, options);
-}
-
-// Function to fetch data from get-data.php and draw charts
-function drawCharts() {
-  var monitor = $('#monitor').val() ?? 203; // Get selected monitor
-  var selectedDate = $('#date_picker').val() ?? '2022-01-01'; // Get selected date
-  // console.log((selectedDate))
-
+function drawScatterChart(monitor) {
   $.ajax({
-    url: 'get-scatter-chart-data.php',
-    type: 'GET',
-    dataType: 'json',
+    url: "get-scatter-chart-data.php",
+    type: "GET",
+    dataType: "json",
     data: { monitor: monitor },
-    success: function(response) {
-      drawScatterChart(response); // Draw scatter chart with the entire response
-      drawLineChart(response); // Draw line chart with the
+    success: function (data) {
+      var dataTable = new google.visualization.DataTable();
+      dataTable.addColumn("string", "Year-Month");
+      dataTable.addColumn("number", "Average NO");
+
+      data.forEach(function (item) {
+        dataTable.addRow([item.year_month, item.average_NO]);
+      });
+
+      var options = {
+        title: "Average NO by Year-Month at 8:00",
+        hAxis: { title: "Year-Month", titleTextStyle: { color: "#333" } },
+        vAxis: { title: "Average NO", minValue: 0 },
+        legend: { position: "bottom" },
+      };
+
+      var chart = new google.visualization.ScatterChart(
+        document.querySelector(".scatter_chart")
+      );
+      chart.draw(dataTable, options);
     },
-    error: function(xhr, status, error) {
-      console.error('Error fetching data:', error);
-    }
+    error: function (xhr, status, error) {
+      console.error("Error fetching data:", error);
+    },
   });
 }
 
-// Function to handle changes in monitor selection
-$('#monitor').change(function() {
-  drawCharts(); // Redraw charts when monitor selection changes
+function drawLineChart(monitor, selected_date) {
+  $.ajax({
+    url: "get-line-chart-data.php",
+    type: "GET",
+    dataType: "json",
+    data: { monitor: monitor, selected_date: selected_date },
+    success: function (data) {
+      var dataTable = new google.visualization.DataTable();
+      dataTable.addColumn("string", "Hour");
+      dataTable.addColumn("number", "NOX");
+      dataTable.addColumn("number", "NO");
+      dataTable.addColumn("number", "NO2");
+
+      for (var hour in data) {
+        dataTable.addRow([
+          hour,
+          parseFloat(data[hour].nox),
+          parseFloat(data[hour].no),
+          parseFloat(data[hour].no2),
+        ]);
+      }
+
+      var options = {
+        title: "Hourly Pollutant Data",
+        hAxis: { title: "Hour", titleTextStyle: { color: "#333" } },
+        vAxis: { title: "Level", minValue: 0 },
+        curveType: "function",
+        legend: { position: "bottom" },
+      };
+
+      var chart = new google.visualization.LineChart(
+        document.querySelector(".line_chart")
+      );
+
+      chart.draw(dataTable, options);
+    },
+    error: function (xhr, status, error) {
+      console.error("Error fetching data:", error);
+    },
+  });
+}
+
+$("#monitor").change(function () {
+  var monitor = $("#monitor").val() ?? 203; // Get selected monitor
+  var selected_date = $("#date_picker").val() ?? "2022-01-01"; // Get selected date
+  drawScatterChart(monitor); // Redraw charts when monitor selection changes
+  drawLineChart(monitor, selected_date); // Redraw charts when monitor selection changes
+});
+
+$("#date_picker").change(function () {
+  var monitor = $("#monitor").val() ?? 203; // Get selected monitor
+  var selected_date = $("#date_picker").val() ?? "2022-01-01"; // Get selected date
+  drawLineChart(monitor, selected_date); // Redraw charts when monitor selection changes
 });
 
 // Load charts when document is ready
-$(document).ready(function() {
-  drawCharts();
+$(document).ready(function () {
+  var monitor = $("#monitor").val() ?? 203; // Get selected monitor
+  var selected_date = $("#date_picker").val() ?? "2022-01-01"; // Get selected date
+  drawScatterChart(monitor);
+  drawLineChart(monitor, selected_date);
 });
