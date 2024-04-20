@@ -23,17 +23,18 @@ function drawScatterChart(data) {
 
 // Function to fetch data from get-data.php and draw charts
 function drawCharts() {
-  var monitor = $('#monitor').val(); // Get selected monitor
-  // var selectedDate = $('#date_picker').val(); // Get selected date
+  var monitor = $('#monitor').val() ?? 203; // Get selected monitor
+  var selectedDate = $('#date_picker').val() ?? '2022-01-01'; // Get selected date
   // console.log((selectedDate))
 
   $.ajax({
-    url: 'get-data.php',
+    url: 'get-scatter-chart-data.php',
     type: 'GET',
     dataType: 'json',
     data: { monitor: monitor },
     success: function(response) {
       drawScatterChart(response); // Draw scatter chart with the entire response
+      drawLineChart(response); // Draw line chart with the
     },
     error: function(xhr, status, error) {
       console.error('Error fetching data:', error);

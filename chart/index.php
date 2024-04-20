@@ -21,7 +21,8 @@
         include("../config.php");
 
         foreach (MONITORS as $key => $value) {
-          echo "<option value='$key'>$value</option>"; // Enclose value in quotes
+          $selected = ($key == "203") ? "selected" : "";
+          echo "<option value='$key' $selected>$value</option>"; // Enclose value in quotes
         }
         ?>
       </select>

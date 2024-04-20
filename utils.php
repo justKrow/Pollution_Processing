@@ -10,6 +10,8 @@ $getHeaders = function ($inputFile) {
   }
 };
 
+
+
 $getDataByCategory = function ($line, $headers) {
   $value_array = str_getcsv($line, ";");
   $combined_array = array_combine($headers, $value_array);
@@ -21,26 +23,12 @@ $formatDateToTimeStamp = function ($date) {
   return $dateTime->getTimestamp();
 };
 
-$getMonthDate = function ($timestamp) {
-  $dateTime = new DateTime('@' . $timestamp);
-  return $dateTime->format('m-d');
-};
-
-$getHour = function ($timestamp) {
-  $dateTime = new DateTime('@' . $timestamp);
-  return $dateTime->format('H');
-};
-
-$getYear = function ($timestamp) {
-  $dateTime = new DateTime('@' . $timestamp);
-  return $dateTime->format('Y');
-};
-
-$checkValidDate = function ($rec, $formatTimestampToDate) {
-  $date = $formatTimestampToDate((int)$rec['ts']);
-  if ($date >= new DateTime('2015-01-01') && $date <= new DateTime('2022-12-31')) {
-    return true;
-  } else {
-    return false;
+$getRecords = function ($monitor, $query) {
+  $dom = new DOMDocument();
+  $dom->load('../data-xml/data-' . $monitor . '.xml');
+  if (!$dom) {
+    throw new Exception("Failed to load XML file: $monitor .xml");
   }
+  $xpath = new DOMXPath($dom);
+  return $xpath->query($query);
 };
