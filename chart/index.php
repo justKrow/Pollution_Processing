@@ -6,11 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>charts</title>
   <link rel="stylesheet" href="styles.css" type="text/css" />
-  <!-- Load jQuery -->
   <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <!-- Load Google Charts API -->
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <!-- Load your app.js -->
 </head>
 
 <body>

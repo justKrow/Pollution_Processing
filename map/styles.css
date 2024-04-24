@@ -1,3 +1,52 @@
 #map {
-  height: 180px;
+  height: 80%;
+}
+
+table {
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+td {
+  margin: 0;
+  padding: 10px;
+}
+
+select {
+  font-size: inherit;
+  background-color: rgb(36, 25, 25);
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+#low {
+  background-color: rgb(158, 207, 108);
+}
+#lOw {
+  background-color: rgb(49, 255, 0);
+}
+#loW {
+  background-color: rgb(49, 207, 0);
+}
+#moderate {
+  background-color: rgb(255, 255, 0);
+}
+#moDERate {
+  background-color: rgb(255, 207, 0);
+}
+#moderATE {
+  background-color: rgb(255, 154, 0);
+}
+#high {
+  background-color: rgb(255, 100, 100);
+}
+#hIgh {
+  background-color: rgb(255, 0, 0);
+}
+#hiGh {
+  background-color: rgb(153, 0, 0);
+}
+#veryHigh {
+  background-color: rgb(206, 48, 255);
 }

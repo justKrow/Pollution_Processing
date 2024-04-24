@@ -30,7 +30,6 @@ $processData = function ($raw_data) {
   foreach ($raw_data as $monitor => $monitor_data) {
     $data[$monitor] = [];
     $data[$monitor]["geocode"] = $monitor_data["geocode"][0]->value;
-    print_r($data);
 
     foreach ($monitor_data["records"] as $record) {
       $hourly_average = [];
@@ -61,7 +60,8 @@ $processData = function ($raw_data) {
 try {
   $raw_data = $filterDataForMap($getRecords);
   $processed_data = $processData($raw_data);
-  print_r($processed_data);
+  echo json_encode($processed_data);
+  // print_r($processed_data);
 } catch (Exception $e) {
   echo "Error: " . $e->getMessage();
 }
