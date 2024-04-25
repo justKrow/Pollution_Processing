@@ -1,4 +1,4 @@
-var map = L.map("map").setView([51.454514, -2.58791], 13);
+var map = L.map("map").setView([51.454514, -2.58791], 12);
 
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
@@ -51,14 +51,28 @@ function createMarker(data, hour) {
 
     // Determine background color based on no2 value
     var backgroundColor;
-    if (no2 <= 50) {
-      backgroundColor = "#00ff00"; // Green
-    } else if (no2 <= 100) {
-      backgroundColor = "#ffff00"; // Yellow
-    } else if (no2 <= 150) {
-      backgroundColor = "#ff9900"; // Orange
-    } else {
-      backgroundColor = "#ff0000"; // Red
+    if (no2 >= 0 && no2 <= 67) {
+      backgroundColor = "rgb(158, 207, 108)";
+    } else if (no2 >= 68 && no2 <= 134) {
+      backgroundColor = "rgb(49, 255, 0)";
+    } else if (no2 >= 135 && no2 <= 200) {
+      backgroundColor = "rgb(49, 207, 0)";
+    } else if (no2 >= 135 && no2 <= 200) {
+      backgroundColor = "rgb(49, 207, 0)";
+    } else if (no2 >= 201 && no2 <= 267) {
+      backgroundColor = "rgb(255, 255, 0)";
+    } else if (no2 >= 268 && no2 <= 334) {
+      backgroundColor = "rgb(255, 207, 0)";
+    } else if (no2 >= 335 && no2 <= 400) {
+      backgroundColor = "rgb(255, 154, 0)";
+    } else if (no2 >= 401 && no2 <= 467) {
+      backgroundColor = "rgb(255, 100, 100)";
+    } else if (no2 >= 468 && no2 <= 534) {
+      backgroundColor = "rgb(255, 0, 0)";
+    } else if (no2 >= 535 && no2 <= 600) {
+      backgroundColor = "rgb(153, 0, 0)";
+    } else if (no2 >= 601) {
+      backgroundColor = "rgb(206, 48, 255)";
     }
 
     var popupContent =

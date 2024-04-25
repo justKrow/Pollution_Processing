@@ -28,7 +28,7 @@ Another way to enhance the chart component is by introducing additional filterin
 
 **Optimization for Performance:**
 
-One of the key considerations for extending the chart component is optimizing its performance, particularly in terms of loading time and data retrieval. Currently, the component may read data on every refresh, leading to unnecessary delays and potentially impacting the user experience. By implementing caching mechanisms, optimizing data retrieval processes, and leveraging techniques such as lazy loading, we can minimize loading times and improve responsiveness, ultimately enhancing the overall user satisfaction.
+One of the key considerations for extending the chart component is optimizing its performance, particularly in terms of loading time and data retrieval. Currently, the component may read data on every refresh, leading to unnecessary delays and potentially impacting the user experience. By implementing caching mechanisms, we can minimize loading times and improve responsiveness, ultimately enhancing the overall user satisfaction.
 
 **Integration with External Data Sources:**
 
@@ -52,7 +52,7 @@ One of the key learning outcomes for me was the exploration and implementation o
 
 **Understanding of XML Parsing Techniques:**
 
-Another significant learning outcome was the deep dive into XML parsing techniques and tools. Prior to this assignment, my familiarity was predominantly with JSON, and XML posed a new and initially challenging learning curve. However, through hands-on experience with libraries such as SimpleXML, XPath, DOM parsing, and streaming, I gained proficiency in navigating and manipulating XML data structures effectively. This newfound understanding of XML parsing techniques has expanded my capabilities as a developer and equipped me with valuable skills for working with diverse data formats.
+Another significant learning outcome was the deep dive into XML parsing techniques and tools. Prior to this assignment, my familiarity was predominantly with JSON, and XML posed a new and initially challenging learning curve. However, through hands-on experience with libraries such as SimpleXML, XPath, DOM parsing, and streaming, I gained proficiency in navigating and manipulating XML data structures effectively. This newfound understanding of XML parsing techniques has expanded my capabilities as a developer and equipped me with valuable skills for working with diverse data formats. Even though I would love to work with streaming for better performance as we have to handle relatively large data set, I find myself more comfortable working with dom parsing which I am not really satisfied with myself but I had to settle for it to make the deadline.
 
 **Adaptation to Alternative Mapping Technologies:**
 

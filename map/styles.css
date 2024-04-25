@@ -49,15 +49,3 @@ select {
 #veryHigh {
   background-color: rgb(206, 48, 255);
 }
-
-.custom-marker {
-  /* Use !important to override Leaflet's default styles */
-  background-color: red !important; /* Change the background color to red */
-  border-radius: 50%; /* Make the marker round */
-  width: 12px; /* Set the width of the marker */
-  height: 12px; /* Set the height of the marker */
-}
-/* 
-#map {
-  filter: grayscale(100%);
-} */

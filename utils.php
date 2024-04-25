@@ -10,8 +10,6 @@ $getHeaders = function ($inputFile) {
   }
 };
 
-
-
 $getDataByCategory = function ($line, $headers) {
   $value_array = str_getcsv($line, ";");
   $combined_array = array_combine($headers, $value_array);
