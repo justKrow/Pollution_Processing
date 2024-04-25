@@ -4,6 +4,7 @@
 <head>
   <title>Map with Station Markers</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
   <link rel="stylesheet" href="styles.css" type="text/css" />
 </head>
@@ -12,8 +13,7 @@
   <div class="title">
     <h1>
       Air Quality Across 01/01/2015 - 31/12/2022 at
-      <select name="hour"></select>
-      : 00
+      <select name="hour" id="hour"></select>
     </h1>
   </div>
   <div id="map" style="height: 400px"></div>
