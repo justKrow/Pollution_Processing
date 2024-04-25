@@ -47,14 +47,21 @@ function drawLineChart(monitor, selected_date) {
       dataTable.addColumn("number", "NO");
       dataTable.addColumn("number", "NO2");
 
-      for (var hour in data) {
+      // Extract and sort the keys (hours) from the data object
+      var hours = Object.keys(data).sort((a, b) => parseInt(a) - parseInt(b));
+
+      // Debugging: Print sorted hours array
+      // console.log("Sorted Hours:", hours);
+
+      // Iterate over the sorted keys to add rows to the dataTable
+      hours.forEach(function (hour) {
         dataTable.addRow([
           hour,
           parseFloat(data[hour].nox),
           parseFloat(data[hour].no),
           parseFloat(data[hour].no2),
         ]);
-      }
+      });
 
       var options = {
         title: "Hourly Pollutant Data",

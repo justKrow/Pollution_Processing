@@ -10,11 +10,11 @@ $filterDataForScatterChart = function ($monitor, $getRecords) {
   $records = $getRecords($monitor, "//rec[number(@ts) >= $timestamp_start and number(@ts) <= $timestamp_end]");
   $data = [];
 
-  // Process the selected records
   foreach ($records as $record) {
     $timestamp = (int)$record->getAttribute('ts');
     $hour = date('H', $timestamp);
-    if ($hour == 8) {
+    $minute = date('i', $timestamp);
+    if ($hour == 8 && $minute == 0) {
       $year_month = date('Y-m', $timestamp);
       $data[$year_month][] = (float)$record->getAttribute('no');
     }
