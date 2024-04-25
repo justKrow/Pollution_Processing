@@ -50,30 +50,7 @@ function createMarker(data, hour) {
     var marker = L.marker(coordinates).addTo(map);
 
     // Determine background color based on no2 value
-    var backgroundColor;
-    if (no2 >= 0 && no2 <= 67) {
-      backgroundColor = "rgb(158, 207, 108)";
-    } else if (no2 >= 68 && no2 <= 134) {
-      backgroundColor = "rgb(49, 255, 0)";
-    } else if (no2 >= 135 && no2 <= 200) {
-      backgroundColor = "rgb(49, 207, 0)";
-    } else if (no2 >= 135 && no2 <= 200) {
-      backgroundColor = "rgb(49, 207, 0)";
-    } else if (no2 >= 201 && no2 <= 267) {
-      backgroundColor = "rgb(255, 255, 0)";
-    } else if (no2 >= 268 && no2 <= 334) {
-      backgroundColor = "rgb(255, 207, 0)";
-    } else if (no2 >= 335 && no2 <= 400) {
-      backgroundColor = "rgb(255, 154, 0)";
-    } else if (no2 >= 401 && no2 <= 467) {
-      backgroundColor = "rgb(255, 100, 100)";
-    } else if (no2 >= 468 && no2 <= 534) {
-      backgroundColor = "rgb(255, 0, 0)";
-    } else if (no2 >= 535 && no2 <= 600) {
-      backgroundColor = "rgb(153, 0, 0)";
-    } else if (no2 >= 601) {
-      backgroundColor = "rgb(206, 48, 255)";
-    }
+    var backgroundColor = calculateBackgroundColor(no2);
 
     var popupContent =
       "<div style='background-color: " +
@@ -101,6 +78,11 @@ function createMarker(data, hour) {
 
 function updateMarkers(hour) {
   fetchData().then((data) => {
+    map.eachLayer(function (layer) {
+      if (layer instanceof L.Marker) {
+        map.removeLayer(layer);
+      }
+    });
     createMarker(data, hour);
   });
 }
@@ -114,3 +96,30 @@ $(document).ready(function () {
   var hour = $("#hour").val() ?? "08";
   updateMarkers(hour);
 });
+
+function calculateBackgroundColor(no2) {
+  // Determine background color based on no2 value
+  if (no2 >= 0 && no2 <= 67) {
+    return "rgb(158, 207, 108)";
+  } else if (no2 >= 68 && no2 <= 134) {
+    return "rgb(49, 255, 0)";
+  } else if (no2 >= 135 && no2 <= 200) {
+    return "rgb(49, 207, 0)";
+  } else if (no2 >= 135 && no2 <= 200) {
+    return "rgb(49, 207, 0)";
+  } else if (no2 >= 201 && no2 <= 267) {
+    return "rgb(255, 255, 0)";
+  } else if (no2 >= 268 && no2 <= 334) {
+    return "rgb(255, 207, 0)";
+  } else if (no2 >= 335 && no2 <= 400) {
+    return "rgb(255, 154, 0)";
+  } else if (no2 >= 401 && no2 <= 467) {
+    return "rgb(255, 100, 100)";
+  } else if (no2 >= 468 && no2 <= 534) {
+    return "rgb(255, 0, 0)";
+  } else if (no2 >= 535 && no2 <= 600) {
+    return "rgb(153, 0, 0)";
+  } else if (no2 >= 601) {
+    return "rgb(206, 48, 255)";
+  }
+}
