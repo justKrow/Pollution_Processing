@@ -1,7 +1,11 @@
 <?php
+// Set default timezone to GMT
 date_default_timezone_set("GMT");
+// Set memory limit to 512 MB
 ini_set("memory_limit", "512M");
+// Set maximum execution time to 300 seconds
 ini_set("max_execution_time", 300);
+// Enable auto-detect line endings
 ini_set("auto_detect_line_endings", true);
 
 include("config.php");
@@ -36,6 +40,7 @@ while (($line = fgets($inputFile)) !== false) {
     continue;
   }
 
+  // Extract latitude and longitude from geo_point_2d field
   list($latitude, $longitude) = explode(", ", $raw_data["geo_point_2d"],);
 
   $data = [

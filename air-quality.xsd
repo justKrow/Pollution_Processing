@@ -1,5 +1,6 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
+  <!-- Define a simple type for ID with a restriction of total digits -->
   <xs:simpleType name="idFormat">
     <xs:restriction base="xs:integer">
       <xs:totalDigits value="3"/>
@@ -11,7 +12,6 @@
       <xs:pattern value="-?\d{1,3}\.\d*,\s*-?\d{1,3}\.\d*"/>
     </xs:restriction>
   </xs:simpleType>
-
 
   <xs:simpleType name="optionalDecimal">
     <xs:restriction base="xs:string">

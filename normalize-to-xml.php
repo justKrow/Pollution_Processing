@@ -5,6 +5,8 @@ include("utils.php");
 function processFile($fileName, $getHeaders, $getDataByCategory, $key, $value)
 {
     $inputFile = fopen($fileName, "r");
+
+    // Get headers from CSV file
     $headers = $getHeaders($inputFile);
     $dom = new DOMDocument("1.0", "UTF-8");
     $dom->preserveWhiteSpace = false; // Ensure that whitespace is not preserved
