@@ -31,6 +31,7 @@ $processData = function ($raw_data) {
     $data[$monitor] = [];
     $data[$monitor]["geocode"] = $monitor_data["geocode"][0]->value;
 
+
     foreach ($monitor_data["records"] as $record) {
       $hourly_average = [];
       $timestamp = (int)$record->getAttribute('ts');
@@ -45,7 +46,7 @@ $processData = function ($raw_data) {
           $hourly_average[$key][$hour_timestamp] = ["total" => 0, "count" => 0];
         }
 
-        $hourly_average[$key][$hour_timestamp]["total"] += $no2_value;
+        $hourly_average[$key][$hour_timestamp]["total"] += $value;
         $hourly_average[$key][$hour_timestamp]["count"]++;
 
         $data[$monitor][$key][$hour_timestamp] = $hourly_average[$key][$hour_timestamp]["total"] / $hourly_average[$key][$hour_timestamp]["count"];

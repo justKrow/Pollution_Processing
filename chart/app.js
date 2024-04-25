@@ -1,4 +1,3 @@
-// Load Google Charts API
 google.charts.load("current", { packages: ["corechart"] });
 
 function drawScatterChart(monitor) {
@@ -50,10 +49,8 @@ function drawLineChart(monitor, selected_date) {
       // Extract and sort the keys (hours) from the data object
       var hours = Object.keys(data).sort((a, b) => parseInt(a) - parseInt(b));
 
-      // Debugging: Print sorted hours array
       // console.log("Sorted Hours:", hours);
 
-      // Iterate over the sorted keys to add rows to the dataTable
       hours.forEach(function (hour) {
         dataTable.addRow([
           hour,
@@ -84,22 +81,21 @@ function drawLineChart(monitor, selected_date) {
 }
 
 $("#monitor").change(function () {
-  var monitor = $("#monitor").val() ?? 203; // Get selected monitor
-  var selected_date = $("#date_picker").val() ?? "2022-01-01"; // Get selected date
-  drawScatterChart(monitor); // Redraw charts when monitor selection changes
-  drawLineChart(monitor, selected_date); // Redraw charts when monitor selection changes
+  var monitor = $("#monitor").val() ?? 203;
+  var selected_date = $("#date_picker").val() ?? "2022-01-01";
+  drawScatterChart(monitor);
+  drawLineChart(monitor, selected_date);
 });
 
 $("#date_picker").change(function () {
-  var monitor = $("#monitor").val() ?? 203; // Get selected monitor
-  var selected_date = $("#date_picker").val() ?? "2022-01-01"; // Get selected date
-  drawLineChart(monitor, selected_date); // Redraw charts when monitor selection changes
+  var monitor = $("#monitor").val() ?? 203;
+  var selected_date = $("#date_picker").val() ?? "2022-01-01";
+  drawLineChart(monitor, selected_date);
 });
 
-// Load charts when document is ready
 $(document).ready(function () {
-  var monitor = $("#monitor").val() ?? 203; // Get selected monitor
-  var selected_date = $("#date_picker").val() ?? "2022-01-01"; // Get selected date
+  var monitor = $("#monitor").val() ?? 203;
+  var selected_date = $("#date_picker").val() ?? "2022-01-01";
   drawScatterChart(monitor);
   drawLineChart(monitor, selected_date);
 });

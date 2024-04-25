@@ -14,9 +14,12 @@ $processDataForChart = function ($filtered_records) {
   $data = [];
   foreach ($filtered_records as $record) {
     $hour = date("H", $record->getAttribute("ts"));
-    $data[$hour]["no"] = $record->getAttribute("nox");
-    $data[$hour]["nox"] = $record->getAttribute("no");
-    $data[$hour]["no2"] = $record->getAttribute("no2");
+    $minute = date('i', $record->getAttribute("ts"));
+    if ($minute == 0) {
+      $data[$hour]["no"] = $record->getAttribute("nox");
+      $data[$hour]["nox"] = $record->getAttribute("no");
+      $data[$hour]["no2"] = $record->getAttribute("no2");
+    }
   }
   return $data;
 };
